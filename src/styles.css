@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+datatable-scroller {
+  width: 100% !important;
+}
+
+.toast-top-center {
+  margin-top: 8px;
+}
+
+/*.ng-valid.ng-dirty:not(form) {
+  border: solid 1px #198754;
+}
+
+.ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
+  border: solid 1px #dc3545;
+}*/

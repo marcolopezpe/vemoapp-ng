@@ -1,0 +1,53 @@
+<header class="p-3 mb-3 border-bottom bg-dark text-white">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+      <a href="/" class="d-flex align-items-center mb-2 me-md-4 mb-lg-0 text-dark text-decoration-none">
+        <img src="assets/images/logo.svg" alt="Camion" width="40" height="40">
+      </a>
+
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <li><a [routerLink]="'/'" class="nav-link px-2 text-white">Inicio</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="nvdMaestras" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Maestras
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="nvdMaestras">
+            <li><a class="dropdown-item" [routerLink]="'/clientes'">Clientes</a></li>
+            <li><a class="dropdown-item" [routerLink]="'/articulos'">Art&iacute;culos</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="nvdVentas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Ventas
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="nvdVentas">
+            <li><a class="dropdown-item" [routerLink]="'/comprobantes'">Comprobantes</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle text-white" href="#" id="nvdAlmacen" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Almac&eacute;n
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="nvdAlmacen">
+            <li><a class="dropdown-item" [routerLink]="'/movimientos'">Movimientos</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <label>{{usuario | lowercase}}</label>
+      </form>
+
+      <div class="dropdown text-end">
+        <a href="#" class="d-block text-white text-decoration-none mouse-pointer dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="assets/images/user.svg" alt="mdo" width="32" height="32" class="rounded-circle">
+        </a>
+        <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+          <li><a class="dropdown-item" href="#">Mi Perfil</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item mouse-pointer" (click)="salir()">Salir</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

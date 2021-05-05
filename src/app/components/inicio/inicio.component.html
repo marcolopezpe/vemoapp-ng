@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<div class="container">
+  <h2>Inicio</h2>
+
+  <hr class="mb-5">
+
+  <h4 class="mb-3">Stock Actual de Art&iacute;culos</h4>
+
+  <a [routerLink]="'/movimientos'" class="btn btn-success">Ir a Abastecer Cami&oacute;n <i class="fa fa-arrow-right ms-1"></i></a>
+
+  <ngx-datatable class="material datatable-scroller striped mt-3"
+                 [rows]="stocks"
+                 [columnMode]="'force'"
+                 [headerHeight]="50"
+                 [footerHeight]="50"
+                 [limit]="10"
+                 [rowHeight]="'auto'"
+                 [reorderable]="'reorderable'">
+
+    <ngx-datatable-column name="C&oacute;digo" prop="articulo">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <span>{{ value.codigo }}</span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Art&iacute;culo" prop="articulo">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <span>{{ value.descripcion }}</span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Cantidad" prop="cantidad">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <span>{{ value }}</span>
+      </ng-template>
+    </ngx-datatable-column>
+
+    <ngx-datatable-column name="Kilos" prop="kilos">
+      <ng-template let-value="value" ngx-datatable-cell-template>
+        <span>{{ value }}</span>
+      </ng-template>
+    </ngx-datatable-column>
+
+  </ngx-datatable>
+</div>

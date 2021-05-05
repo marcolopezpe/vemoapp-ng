@@ -1,0 +1,56 @@
+<app-header></app-header>
+
+<div class="container">
+  <h2>Art&iacute;culos</h2>
+
+  <hr class="mb-3">
+
+  <p class="bg-light p-3 shadow">
+    <a [routerLink]="'/articulos/registro'" class="btn btn-success"><i class="fa fa-plus-circle me-1"></i>Nuevo Art&iacute;culo</a>
+  </p>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <ngx-datatable class="material striped mt-3"
+                     [rows]="articulos"
+                     [columnMode]="'force'"
+                     [headerHeight]="50"
+                     [footerHeight]="50"
+                     [limit]="10"
+                     [rowHeight]="'auto'"
+                     [reorderable]="'reorderable'"
+                     [scrollbarH]="true">
+
+        <ngx-datatable-column name="C&oacute;digo" prop="codigo">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <span>{{ value }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Descripci&oacute;n" prop="descripcion">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <span>{{ value }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Unidad Medida" prop="unidadMedida">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <span>{{ value.nombre }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Opciones" prop="id">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <button [routerLink]="'/articulos/registro/' + value" class="btn btn-warning btn-sm me-1 text-white">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button (click)="eliminar(row)" class="btn btn-danger btn-sm me-1">
+              <i class="fa fa-times"></i>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+
+</div>

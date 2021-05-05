@@ -1,0 +1,23 @@
+<form class="form-signin mt-5" [formGroup]="frmLogin" (ngSubmit)="ingresar()">
+  <img class="mb-4" src="assets/images/logo.svg" alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesi&oacute;n</h1>
+
+  <label for="inputEmail" class="sr-only">Usuario</label>
+  <input type="email"
+         id="inputEmail"
+         class="form-control"
+         placeholder="Usuario"
+         formControlName="usuario"
+         required autofocus>
+
+  <label for="inputPassword" class="sr-only">Contrase&ntilde;a</label>
+  <input type="password"
+         id="inputPassword"
+         class="form-control"
+         placeholder="Contrase&ntilde;a"
+         formControlName="contrasena"
+         required>
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+  <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
+</form>

@@ -1,0 +1,84 @@
+<app-header></app-header>
+
+<div class="container">
+  <h2>Registro de Cliente</h2>
+
+  <hr class="mb-3">
+
+  <div class="bg-light p-3 shadow">
+    <form [formGroup]="frmCliente" (ngSubmit)="guardar($event)">
+      <input type="hidden" formControlName="id">
+
+      <div class="mb-3">
+        <label>Raz&oacute;n Social</label>
+        <input type="text" class="form-control" formControlName="razonSocial">
+        <small class="text-danger" *ngIf="valid('razonSocial', 'required')">
+            Campo obligatorio.
+        </small>
+        <small class="text-danger" *ngIf="valid('razonSocial', 'minlength')">
+          La longitud minima para este campo es {{value('razonSocial', 'minlength').requiredLength}} caracteres.
+        </small>
+        <small class="text-danger" *ngIf="valid('razonSocial', 'maxlength')">
+          La longitud maxima para este campo es {{value('razonSocial', 'maxlength').requiredLength}} caracteres.
+        </small>
+      </div>
+
+      <div class="mb-3">
+        <label>Tipo Documento</label>
+        <select class="form-select" formControlName="tipoDocumento">
+          <option selected="selected" value="">- SELECCIONAR -</option>
+          <option value="DNI">DNI</option>
+          <option value="RUC">RUC</option>
+          <option value="PASAPORTE">PASAPORTE</option>
+        </select>
+        <small class="text-danger" *ngIf="valid('tipoDocumento', 'required')">
+          Campo obligatorio.
+        </small>
+      </div>
+
+      <div class="mb-3">
+        <label>N&uacute;mero Documento</label>
+        <input type="text" class="form-control" formControlName="numeroDocumento">
+        <small class="text-danger" *ngIf="valid('numeroDocumento', 'required')">
+          Campo obligatorio.
+        </small>
+        <small class="text-danger" *ngIf="valid('numeroDocumento', 'minlength')">
+          La longitud minima para este campo es {{value('numeroDocumento', 'minlength').requiredLength}} caracteres.
+        </small>
+        <small class="text-danger" *ngIf="valid('numeroDocumento', 'maxlength')">
+          La longitud maxima para este campo es {{value('numeroDocumento', 'maxlength').requiredLength}} caracteres.
+        </small>
+      </div>
+
+      <div class="mb-3">
+        <label>Direcci&oacute;n</label>
+        <input type="text" class="form-control" formControlName="direccion">
+        <small class="text-danger" *ngIf="valid('direccion', 'required')">
+          Campo obligatorio.
+        </small>
+        <small class="text-danger" *ngIf="valid('direccion', 'minlength')">
+          La longitud minima para este campo es {{value('direccion', 'minlength').requiredLength}} caracteres.
+        </small>
+        <small class="text-danger" *ngIf="valid('direccion', 'maxlength')">
+          La longitud maxima para este campo es {{value('direccion', 'maxlength').requiredLength}} caracteres.
+        </small>
+      </div>
+
+      <div class="mb-3">
+        <label>Contacto</label>
+        <input type="text" class="form-control" formControlName="nombreContacto">
+      </div>
+
+      <div class="mb-3">
+        <label>Email</label>
+        <input type="text" class="form-control" formControlName="emailContacto">
+      </div>
+
+      <hr>
+
+      <button type="submit" class="btn btn-primary"><i class="fa fa-check me-1"></i>Guardar</button>
+      <a class="btn btn-default" [routerLink]="'/clientes'">Cancelar</a>
+    </form>
+  </div>
+
+</div>

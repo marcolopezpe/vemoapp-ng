@@ -1,0 +1,58 @@
+<app-header></app-header>
+
+<div class="container">
+  <h2>Registro de Cliente</h2>
+
+  <hr class="mb-3">
+
+  <div class="bg-light p-3 shadow">
+    <form [formGroup]="frmArticulo" (ngSubmit)="guardar($event)">
+      <input type="hidden" formControlName="id">
+
+      <div class="mb-3">
+        <label>C&oacute;digo</label>
+        <input type="text" class="form-control" formControlName="codigo">
+        <small class="text-danger" *ngIf="valid('codigo', 'required')">
+          Campo obligatorio.
+        </small>
+        <small class="text-danger" *ngIf="valid('codigo', 'minlength')">
+          La longitud minima para este campo es {{value('codigo', 'minlength').requiredLength}} caracteres.
+        </small>
+        <small class="text-danger" *ngIf="valid('codigo', 'maxlength')">
+          La longitud maxima para este campo es {{value('codigo', 'maxlength').requiredLength}} caracteres.
+        </small>
+      </div>
+
+      <div class="mb-3">
+        <label>Descripci&oacute;n</label>
+        <input type="text" class="form-control" formControlName="descripcion">
+        <small class="text-danger" *ngIf="valid('descripcion', 'required')">
+          Campo obligatorio.
+        </small>
+        <small class="text-danger" *ngIf="valid('descripcion', 'minlength')">
+          La longitud minima para este campo es {{value('descripcion', 'minlength').requiredLength}} caracteres.
+        </small>
+        <small class="text-danger" *ngIf="valid('descripcion', 'maxlength')">
+          La longitud maxima para este campo es {{value('descripcion', 'maxlength').requiredLength}} caracteres.
+        </small>
+      </div>
+
+      <div class="mb-3">
+        <label>Unidad Medida</label>
+        <select class="form-select" formControlName="unidadMedidaId">
+          <option selected="selected" value="">- SELECCIONAR -</option>
+          <option *ngFor="let um of unidadesMedidas" value="{{um.id}}">{{um.nombre}}</option>
+        </select>
+        <small class="text-danger" *ngIf="valid('unidadMedidaId', 'required')">
+          Campo obligatorio.
+        </small>
+      </div>
+
+      <hr>
+
+      <button type="submit" class="btn btn-primary"><i class="fa fa-check me-1"></i>Guardar</button>
+      <a class="btn btn-default" [routerLink]="'/articulos'">Cancelar</a>
+    </form>
+  </div>
+
+</div>

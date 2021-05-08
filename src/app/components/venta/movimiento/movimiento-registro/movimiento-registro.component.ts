@@ -50,15 +50,13 @@ export class MovimientoRegistroComponent implements OnInit {
     this.loadMovimiento();
   }
 
-
-
   loadMovimiento() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
       if (this.id) {
         this.movimientoService.getMovimientoById(this.id).subscribe(res => {
           this.f.id.setValue(res.result.id);
-          this.f.fecha.setValue(Utils.toDate(res.result.fecha));
+          this.f.fecha.setValue(Utils.stringToDate(res.result.fecha));
           this.f.articuloId.setValue(res.result.articulo.id);
           this.f.articulo.setValue(res.result.articulo.codigo + ' / ' + res.result.articulo.descripcion);
           this.f.tipo.setValue(res.result.tipo);

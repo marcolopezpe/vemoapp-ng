@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {MovimientoService} from '../../../services/venta/movimiento.service';
 import Utils from '../../../models/shared/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-movimiento',
@@ -36,7 +37,6 @@ export class MovimientoComponent implements OnInit {
     let tipo = this.f.tipo.value;
 
     this.movimientoService.getMovimientosByFiltro(desde, hasta, descripcion, tipo).subscribe(res => {
-      console.log(res);
       this.movimientos = res.result;
     }, (err) => {
       console.error(err);
@@ -48,6 +48,32 @@ export class MovimientoComponent implements OnInit {
   }
 
   eliminar(row) {
-
+    Swal.fire({
+      title: 'Eliminar',
+      text: `¿Esta seguro eliminar el Movimiento con Fecha "${Utils.dateToString(row.fecha)}" y Articulo "${row.articulo.codigo + ' / ' + row.articulo.descripcion}"?`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, Eliminar',
+      cancelButtonText: 'No',
+      confirmButtonColor: '#dc3545'
+    }).then((result) => {
+      if (result.value) {
+        this.movimientoService.eliminar(row.id).subscribe(res => {
+          this.loadMovimientos();
+          Swal.fire(
+            'Eliminado',
+            'Registro eliminado correctamente.',
+            'success'
+          );
+        }, (err) => {
+          console.error(err);
+          Swal.fire(
+            'Error',
+            'Error al eliminar',
+            'error'
+          );
+        });
+      }
+    });
   }
 }

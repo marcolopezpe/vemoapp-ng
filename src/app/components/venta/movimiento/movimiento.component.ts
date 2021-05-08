@@ -50,7 +50,7 @@ export class MovimientoComponent implements OnInit {
   eliminar(row) {
     Swal.fire({
       title: 'Eliminar',
-      text: `¿Esta seguro eliminar el Movimiento con Fecha "${Utils.dateToString(row.fecha)}" y Articulo "${row.articulo.codigo + ' / ' + row.articulo.descripcion}"?`,
+      text: `¿Esta seguro eliminar el Movimiento con Fecha "${Utils.toDateFormat(row.fecha)}" y Articulo "${row.articulo.codigo + ' / ' + row.articulo.descripcion}"?`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si, Eliminar',

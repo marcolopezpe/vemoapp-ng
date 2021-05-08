@@ -14,6 +14,11 @@ export default class Utils {
     return moment(goodDate).format('DD/MM/YYYY');
   }
 
+  static toDateFormat(date: string): string {
+    const goodDate = this.stringToDate(date);
+    return moment(goodDate).format('DD/MM/YYYY');
+  }
+
   // 2021-05-31T00:00:00.000+00:00
   static stringToDate(date: string): Date {
     const dateWithoutTime = date.substring(0, 10);

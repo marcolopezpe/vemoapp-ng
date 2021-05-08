@@ -7,7 +7,14 @@
 
   <h4 class="mb-3">Stock Actual de Art&iacute;culos</h4>
 
-  <a [routerLink]="'/movimientos'" class="btn btn-success">Ir a Abastecer Cami&oacute;n <i class="fa fa-arrow-right ms-1"></i></a>
+  <div class="bg-light p-3 shadow">
+    <button type="button" class="btn btn-success btn-sm me-1" (click)="loadFinalStocks()">
+      <i class="fa fa-redo me-1"></i>Actualizar Stock
+    </button>
+    <button [routerLink]="'/movimientos'" class="btn btn-primary btn-sm" type="button">
+      Ir a Abastecer Cami&oacute;n <i class="fa fa-arrow-right ms-1"></i>
+    </button>
+  </div>
 
   <ngx-datatable class="material datatable-scroller striped mt-3"
                  [rows]="stocks"

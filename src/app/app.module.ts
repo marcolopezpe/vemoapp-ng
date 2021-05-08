@@ -15,9 +15,16 @@ import {ClienteComponent} from './components/venta/cliente/cliente.component';
 import {ClienteRegistroComponent} from './components/venta/cliente/cliente-registro/cliente-registro.component';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
 import {AuthInterceptor} from './interceptors/auth/auth.interceptor';
-import { ArticuloComponent } from './components/venta/articulo/articulo.component';
-import { ArticuloRegistroComponent } from './components/venta/articulo/articulo-registro/articulo-registro.component';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {ArticuloComponent} from './components/venta/articulo/articulo.component';
+import {ArticuloRegistroComponent} from './components/venta/articulo/articulo-registro/articulo-registro.component';
+import {MovimientoComponent} from './components/venta/movimiento/movimiento.component';
+import {BsDatepickerModule, BsLocaleService} from 'ngx-bootstrap/datepicker';
+import {defineLocale} from 'ngx-bootstrap/chronos';
+import {esLocale} from 'ngx-bootstrap/locale';
+import { MovimientoRegistroComponent } from './components/venta/movimiento/movimiento-registro/movimiento-registro.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
+
+defineLocale('es', esLocale);
 
 @NgModule({
   declarations: [
@@ -28,7 +35,9 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     ClienteComponent,
     ClienteRegistroComponent,
     ArticuloComponent,
-    ArticuloRegistroComponent
+    ArticuloRegistroComponent,
+    MovimientoComponent,
+    MovimientoRegistroComponent
   ],
   imports: [
     BrowserModule,
@@ -39,8 +48,11 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot({
       positionClass: 'toast-top-center'
-    }), // ToastrModule added
-    FontAwesomeModule
+    }),
+    BsDatepickerModule,
+    // ToastrModule added
+    BsDatepickerModule.forRoot(),
+    ModalModule.forRoot()
   ],
   providers: [
     {
@@ -55,4 +67,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
   bootstrap: [AppComponent]
 })
 export class AppModule {
+
+  constructor(private localeService: BsLocaleService) {
+    this.localeService.use('es');
+  }
 }

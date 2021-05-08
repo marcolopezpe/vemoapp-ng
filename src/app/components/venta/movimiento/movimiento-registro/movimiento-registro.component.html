@@ -1,0 +1,145 @@
+<app-header></app-header>
+
+<div class="container">
+  <h2>Registro de Movimiento</h2>
+
+  <hr class="mb-3">
+
+  <div class="bg-light p-3 shadow">
+    <form [formGroup]="frmMovimiento" (ngSubmit)="guardar($event)">
+      <input type="hidden">
+
+      <div class="mb-3 col-2 row">
+        <label>Fecha</label>
+        <div class="input-group">
+          <input type="text"
+                 class="form-control bg-white"
+                 readonly
+                 #fecha="bsDatepicker"
+                 bsDatepicker
+                 [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', showWeekNumbers: false }"
+                 formControlName="fecha">
+          <button class="btn btn-secondary" (click)="fecha.toggle()" type="button">
+            <i class="fa fa-calendar-alt"></i>
+          </button>
+        </div>
+        <small class="text-danger" *ngIf="valid('fecha', 'required')">
+          Campo obligatorio.
+        </small>
+      </div>
+
+      <div class="mb-3 col-5">
+        <label>Art&iacute;culo</label>
+        <div class="input-group">
+          <input type="hidden" formControlName="articuloId">
+          <input type="text"
+                 class="form-control bg-white"
+                 readonly
+                 formControlName="articulo">
+          <button class="btn btn-secondary" type="button" (click)="openArticulosModal(articulosTemplateModal)">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+        <small class="text-danger" *ngIf="valid('articuloId', 'required')">
+          Campo obligatorio.
+        </small>
+      </div>
+
+      <div class="mb-3 col-2">
+        <label>Cantidad</label>
+        <input type="text" class="form-control text-end" formControlName="cantidad">
+        <small class="text-danger" *ngIf="valid('cantidad', 'required')">
+          Campo obligatorio.
+        </small>
+        <small class="text-danger" *ngIf="valid('cantidad', 'pattern')">
+          Solo valores numericos.
+        </small>
+      </div>
+
+      <div class="mb-3 col-2">
+        <label>Kilos</label>
+        <input type="text" class="form-control text-end" formControlName="kilos">
+        <small class="text-danger" *ngIf="valid('kilos', 'required')">
+          Campo obligatorio.
+        </small>
+        <small class="text-danger" *ngIf="valid('kilos', 'pattern')">
+          Solo valores numericos.
+        </small>
+      </div>
+
+      <div class="mb-3">
+        <label>Tipo</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="entradaRadio" formControlName="tipo" value="E">
+          <label class="form-check-label badge bg-success" for="entradaRadio">ENTRADA</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" id="salidaRadio" formControlName="tipo" value="S">
+          <label class="form-check-label badge bg-danger" for="salidaRadio">SALIDA</label>
+        </div>
+        <small class="text-danger" *ngIf="valid('tipo', 'required')">
+          Campo obligatorio.
+        </small>
+      </div>
+
+      <hr>
+
+      <button type="submit" class="btn btn-primary"><i class="fa fa-check me-1"></i>Guardar</button>
+      <a class="btn btn-default" [routerLink]="'/movimientos'">Cancelar</a>
+    </form>
+  </div>
+</div>
+
+<ng-template #articulosTemplateModal>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Buscar Art&iacute;culos</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="articulosModalRef.hide()">
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <ngx-datatable class="material striped"
+                       [rows]="articulos"
+                       [columnMode]="'force'"
+                       [headerHeight]="50"
+                       [footerHeight]="50"
+                       [limit]="10"
+                       [rowHeight]="'auto'"
+                       [reorderable]="'reorderable'"
+                       [scrollbarH]="true">
+
+          <ngx-datatable-column name="C&oacute;digo" prop="codigo">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              <span>{{ value }}</span>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Descripci&oacute;n" prop="descripcion">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              <span>{{ value }}</span>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="Unidad Medida" prop="unidadMedida">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+              <span>{{ value.nombre }}</span>
+            </ng-template>
+          </ngx-datatable-column>
+
+          <ngx-datatable-column name="" prop="id">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+              <button type="button" class="btn btn-warning btn-sm me-1 text-white" (click)="seleccionarArticulo(row)">
+                <i class="fa fa-check me-1"></i> Seleccionar
+              </button>
+            </ng-template>
+          </ngx-datatable-column>
+        </ngx-datatable>
+      </div>
+    </div>
+
+    <hr>
+
+    <button type="button" class="btn btn-danger btn-sm" (click)="articulosModalRef.hide()">Cerrar Ventana</button>
+  </div>
+</ng-template>

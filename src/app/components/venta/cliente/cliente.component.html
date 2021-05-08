@@ -5,9 +5,11 @@
 
   <hr class="mb-3">
 
-  <p class="bg-light p-3 shadow">
-    <a [routerLink]="'/clientes/registro'" class="btn btn-success"><i class="fa fa-plus-circle me-1"></i>Nuevo Cliente</a>
-  </p>
+  <div class="bg-light p-3 shadow">
+    <button [routerLink]="'/clientes/registro'" class="btn btn-success btn-sm" type="button">
+      <i class="fa fa-plus-circle me-1"></i>Agregar
+    </button>
+  </div>
 
   <div class="row">
     <div class="col-sm-12">
@@ -19,45 +21,46 @@
                      [limit]="10"
                      [rowHeight]="'auto'"
                      [reorderable]="'reorderable'"
-                     [scrollbarH]="true">
+                     [scrollbarH]="true"
+                     style="table-layout: fixed">
 
-        <ngx-datatable-column name="Raz&oacute;n Social" prop="razonSocial">
+        <ngx-datatable-column name="Raz&oacute;n Social" prop="razonSocial" [width]="300">
           <ng-template let-value="value" ngx-datatable-cell-template>
             <span>{{ value }}</span>
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Tipo Documento" prop="tipoDocumento">
+        <ngx-datatable-column name="Tipo Documento" prop="tipoDocumento" [width]="150">
           <ng-template let-value="value" ngx-datatable-cell-template>
             <span>{{ value }}</span>
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Nro Documento" prop="numeroDocumento">
+        <ngx-datatable-column name="Nro Documento" prop="numeroDocumento" [width]="150">
           <ng-template let-value="value" ngx-datatable-cell-template>
             <span>{{ value }}</span>
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Direcci&oacute;n" prop="direccion">
+        <ngx-datatable-column name="Direcci&oacute;n" prop="direccion" [width]="300">
           <ng-template let-value="value" ngx-datatable-cell-template>
             <span>{{ value }}</span>
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Contacto" prop="nombreContacto">
+        <ngx-datatable-column name="Contacto" prop="nombreContacto" [width]="300">
           <ng-template let-value="value" ngx-datatable-cell-template>
             <span>{{ value }}</span>
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Email" prop="emailContacto">
+        <ngx-datatable-column name="Email" prop="emailContacto" [width]="300">
           <ng-template let-value="value" ngx-datatable-cell-template>
             <span>{{ value }}</span>
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Opciones" prop="id">
+        <ngx-datatable-column name="" prop="id" [width]="150">
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
             <button [routerLink]="'/clientes/registro/' + value" class="btn btn-warning btn-sm me-1 text-white">
               <i class="fa fa-edit"></i>

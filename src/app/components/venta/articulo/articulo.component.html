@@ -5,9 +5,11 @@
 
   <hr class="mb-3">
 
-  <p class="bg-light p-3 shadow">
-    <a [routerLink]="'/articulos/registro'" class="btn btn-success"><i class="fa fa-plus-circle me-1"></i>Nuevo Art&iacute;culo</a>
-  </p>
+  <div class="bg-light p-3 shadow">
+    <button [routerLink]="'/articulos/registro'" class="btn btn-success btn-sm" type="button">
+      <i class="fa fa-plus-circle me-1"></i>Agregar
+    </button>
+  </div>
 
   <div class="row">
     <div class="col-sm-12">
@@ -39,7 +41,7 @@
           </ng-template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Opciones" prop="id">
+        <ngx-datatable-column name="" prop="id">
           <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
             <button [routerLink]="'/articulos/registro/' + value" class="btn btn-warning btn-sm me-1 text-white">
               <i class="fa fa-edit"></i>

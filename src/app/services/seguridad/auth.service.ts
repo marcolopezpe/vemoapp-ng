@@ -37,4 +37,8 @@ export class AuthService {
     const oToken: Token = decoded as Token;
     return oToken.sub;
   }
+
+  isTokenNotFound() {
+    return !this.getToken();
+  }
 }

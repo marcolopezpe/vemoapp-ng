@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+/*@import "../src/assets/css/@swinlane/ngx-datatable/index.css";
+@import "../src/assets/css/@swinlane/ngx-datatable/themes/material.css";
+@import "../src/assets/css/@swinlane/ngx-datatable/themes/bootstrap.css";
+@import "../node_modules/@swimlane/ngx-datatable/assets/icons.css";*/
+
 * {
   font-family: 'IBM Plex Sans', sans-serif;
 }
@@ -10,11 +15,3 @@ datatable-scroller {
 .toast-top-center {
   margin-top: 8px;
 }
-
-/*.ng-valid.ng-dirty:not(form) {
-  border: solid 1px #198754;
-}
-
-.ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
-  border: solid 1px #dc3545;
-}*/

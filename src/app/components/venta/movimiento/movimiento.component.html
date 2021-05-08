@@ -1,0 +1,123 @@
+<app-header></app-header>
+
+<div class="container">
+  <h2>Movimientos</h2>
+
+  <hr class="mb-3">
+
+  <div class="bg-light p-3 shadow">
+    <form [formGroup]="frmFiltro" (ngSubmit)="loadMovimientos()">
+      <div class="row g-2 align-items-end">
+        <div class="col-auto">
+          <label class="col-form-label-sm">Desde</label>
+          <div class="input-group input-group-sm">
+            <input type="text"
+                   class="form-control bg-white"
+                   size="10"
+                   readonly
+                   #desde="bsDatepicker"
+                   bsDatepicker
+                   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', showWeekNumbers: false }"
+                   formControlName="desde">
+            <button class="btn btn-secondary" (click)="desde.toggle()" type="button">
+              <i class="fa fa-calendar-alt"></i>
+            </button>
+          </div>
+        </div>
+        <div class="col-auto">
+          <label class="col-form-label-sm">Hasta</label>
+          <div class="input-group input-group-sm">
+            <input type="text"
+                   class="form-control bg-white"
+                   size="10"
+                   readonly
+                   #hasta="bsDatepicker"
+                   bsDatepicker
+                   [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY', showWeekNumbers: false }"
+                   formControlName="hasta">
+            <button class="btn btn-secondary" (click)="hasta.toggle()" type="button">
+              <i class="fa fa-calendar-alt"></i>
+            </button>
+          </div>
+        </div>
+        <div class="col-auto">
+          <label class="col-form-label-sm">Descripci&oacute;n</label>
+          <input type="text" class="form-control form-control-sm" size="30" formControlName="descripcion">
+        </div>
+        <div class="col-auto">
+          <label class="col-form-label-sm">Tipo</label>
+          <select class="form-select form-select-sm" formControlName="tipo">
+            <option selected="selected" value="">- TODOS -</option>
+            <option value="E">ENTRADA</option>
+            <option value="S">SALIDA</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary btn-sm me-1">
+            <i class="fa fa-search me-1"></i>Buscar
+          </button>
+          <button [routerLink]="'/movimientos/registro'" class="btn btn-success btn-sm" type="button">
+            <i class="fa fa-plus-circle me-1"></i>Agregar
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <ngx-datatable class="material striped mt-3"
+                     [rows]="movimientos"
+                     [columnMode]="'force'"
+                     [headerHeight]="50"
+                     [footerHeight]="50"
+                     [limit]="10"
+                     [rowHeight]="'auto'"
+                     [reorderable]="'reorderable'"
+                     [scrollbarH]="true">
+
+        <ngx-datatable-column name="Fecha" prop="fecha" [width]="50">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <span>{{ value | date: 'dd/MM/yyyy' : 'UTC' }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Art&iacute;culo" prop="articulo" [width]="350">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <span>{{ value.codigo + ' / ' + value.descripcion }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Cantidad" prop="cantidad" [width]="50">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <span>{{ value }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Kilos" prop="kilos" [width]="50">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <span>{{ value }}</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Tipo" prop="tipo" [width]="50">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <span *ngIf="value=='E'" class="badge bg-success">ENTRADA</span>
+            <span *ngIf="value=='S'" class="badge bg-danger">SALIDA</span>
+          </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="" prop="id" [width]="150">
+          <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+            <button [routerLink]="'/movimientos/registro/' + value" class="btn btn-warning btn-sm me-1 text-white">
+              <i class="fa fa-edit"></i>
+            </button>
+            <button (click)="eliminar(row)" class="btn btn-danger btn-sm me-1">
+              <i class="fa fa-times"></i>
+            </button>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
+    </div>
+  </div>
+</div>

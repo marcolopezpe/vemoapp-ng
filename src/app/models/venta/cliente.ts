@@ -8,4 +8,8 @@ export class Cliente {
   nombreContacto: string;
   emailContacto: string;
   estado: number;
+
+  constructor(id: number) {
+    this.id = id;
+  }
 }

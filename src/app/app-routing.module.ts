@@ -7,8 +7,11 @@ import {ClienteComponent} from './components/venta/cliente/cliente.component';
 import {ClienteRegistroComponent} from './components/venta/cliente/cliente-registro/cliente-registro.component';
 import {ArticuloComponent} from './components/venta/articulo/articulo.component';
 import {ArticuloRegistroComponent} from './components/venta/articulo/articulo-registro/articulo-registro.component';
-import {MovimientoComponent} from './components/venta/movimiento/movimiento.component';
-import {MovimientoRegistroComponent} from './components/venta/movimiento/movimiento-registro/movimiento-registro.component';
+import {ComprobanteComponent} from './components/venta/comprobante/comprobante.component';
+import {ComprobanteRegistroComponent} from './components/venta/comprobante/comprobante-registro/comprobante-registro.component';
+import {MovimientoSalidaComponent} from './components/venta/movimiento/movimiento-salida/movimiento-salida.component';
+import {MovimientoEntradaComponent} from './components/venta/movimiento/movimiento-entrada/movimiento-entrada.component';
+import {MovimientoEntradaRegistroComponent} from './components/venta/movimiento/movimiento-entrada/movimiento-entrada-registro/movimiento-entrada-registro.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'inicio', pathMatch: 'full'},
@@ -20,9 +23,13 @@ const routes: Routes = [
   {path: 'articulos', component: ArticuloComponent, canActivate: [AuthGuard]},
   {path: 'articulos/registro', component: ArticuloRegistroComponent, canActivate: [AuthGuard]},
   {path: 'articulos/registro/:id', component: ArticuloRegistroComponent, canActivate: [AuthGuard]},
-  {path: 'movimientos', component: MovimientoComponent, canActivate: [AuthGuard]},
-  {path: 'movimientos/registro', component: MovimientoRegistroComponent, canActivate: [AuthGuard]},
-  {path: 'movimientos/registro/:id', component: MovimientoRegistroComponent, canActivate: [AuthGuard]}
+  {path: 'entradas', component: MovimientoEntradaComponent, canActivate: [AuthGuard]},
+  {path: 'entradas/registro', component: MovimientoEntradaRegistroComponent, canActivate: [AuthGuard]},
+  {path: 'entradas/registro/:id', component: MovimientoEntradaRegistroComponent, canActivate: [AuthGuard]},
+  {path: 'salidas', component: MovimientoSalidaComponent, canActivate: [AuthGuard]},
+  {path: 'comprobantes', component: ComprobanteComponent, canActivate: [AuthGuard]},
+  {path: 'comprobantes/registro', component: ComprobanteRegistroComponent, canActivate: [AuthGuard]},
+  {path: 'comprobantes/registro/:id', component: ComprobanteRegistroComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

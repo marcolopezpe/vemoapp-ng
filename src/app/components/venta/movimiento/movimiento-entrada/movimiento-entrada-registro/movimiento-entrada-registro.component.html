@@ -1,12 +1,12 @@
 <app-header></app-header>
 
 <div class="container">
-  <h2>Registro de Movimiento</h2>
+  <h2>{{title}}</h2>
 
   <hr class="mb-3">
 
   <div class="bg-light p-3 shadow">
-    <form [formGroup]="frmMovimiento" (ngSubmit)="guardar($event)">
+    <form [formGroup]="frmMovimientoEntrada" (ngSubmit)="guardarEntrada($event)">
       <input type="hidden" formControlName="id">
 
       <div class="mb-3 col-2 row">
@@ -28,7 +28,7 @@
         </small>
       </div>
 
-      <div class="mb-3 col-5">
+      <div class="mb-3 col-6">
         <label>Art&iacute;culo</label>
         <div class="input-group">
           <input type="hidden" formControlName="articuloId">
@@ -67,25 +67,10 @@
         </small>
       </div>
 
-      <div class="mb-3">
-        <label>Tipo</label>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" id="entradaRadio" formControlName="tipo" value="E">
-          <label class="form-check-label badge bg-success" for="entradaRadio">ENTRADA</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" id="salidaRadio" formControlName="tipo" value="S">
-          <label class="form-check-label badge bg-danger" for="salidaRadio">SALIDA</label>
-        </div>
-        <small class="text-danger" *ngIf="valid('tipo', 'required')">
-          Campo obligatorio.
-        </small>
-      </div>
-
       <hr>
 
       <button type="submit" class="btn btn-primary"><i class="fa fa-check me-1"></i>Guardar</button>
-      <a class="btn btn-default" [routerLink]="'/movimientos'">Cancelar</a>
+      <a class="btn btn-default" [routerLink]="'/entradas'">Cancelar</a>
     </form>
   </div>
 </div>

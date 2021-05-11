@@ -1,12 +1,11 @@
 import {Articulo} from './articulo';
-import {ComprobanteDetalle} from './comprobante-detalle';
+import {Comprobante} from './comprobante';
 
-export class Movimiento {
+export class ComprobanteDetalle {
 
   id: number;
-  fecha: Date;
   articulo: Articulo;
-  tipo: string;
+  precioUnitario: number;
   cantidad: number;
   kilos: number;
   estado: number;

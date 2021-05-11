@@ -1,43 +1,42 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MovimientoService} from '../../../services/venta/movimiento.service';
-import Utils from '../../../models/shared/utils';
+import {MovimientoService} from '../../../../services/venta/movimiento.service';
+import Utils from '../../../../models/shared/utils';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-movimiento',
-  templateUrl: './movimiento.component.html',
-  styleUrls: ['./movimiento.component.css']
+  selector: 'app-movimiento-entrada',
+  templateUrl: './movimiento-entrada.component.html',
+  styleUrls: ['./movimiento-entrada.component.css']
 })
-export class MovimientoComponent implements OnInit {
+export class MovimientoEntradaComponent implements OnInit {
 
   frmFiltro: FormGroup;
-  movimientos = [];
+  entradas = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private movimientoService: MovimientoService) {
+    private movimientoService: MovimientoService
+  ) {
   }
 
   ngOnInit(): void {
     this.frmFiltro = this.formBuilder.group({
-      desde: [Utils.extractDateOf(new Date())],
+      desde: [Utils.dateWithFirstDay()],
       hasta: [Utils.extractDateOf(new Date())],
-      descripcion: [''],
-      tipo: ['']
+      descripcion: ['']
     });
 
-    this.loadMovimientos();
+    this.loadEntradas();
   }
 
-  loadMovimientos() {
+  loadEntradas() {
     let desde = Utils.extractDateOf(this.f.desde.value);
     let hasta = Utils.extractDateOf(this.f.hasta.value);
     let descripcion = this.f.descripcion.value;
-    let tipo = this.f.tipo.value;
 
-    this.movimientoService.getMovimientosByFiltro(desde, hasta, descripcion, tipo).subscribe(res => {
-      this.movimientos = res.result;
+    this.movimientoService.getMovimientosByFiltro(desde, hasta, descripcion, 'E').subscribe(res => {
+      this.entradas = res.result;
     }, (err) => {
       console.error(err);
     });
@@ -50,7 +49,7 @@ export class MovimientoComponent implements OnInit {
   eliminar(row) {
     Swal.fire({
       title: 'Eliminar',
-      text: `¿Esta seguro de eliminar el Movimiento con Fecha "${Utils.toDateFormat(row.fecha)}" y Articulo "${row.articulo.codigo + ' / ' + row.articulo.descripcion}"?`,
+      text: `¿Esta seguro de eliminar la Entrada con Fecha "${Utils.toDateFormat(row.fecha)}" y Articulo "${row.articulo.codigo + ' / ' + row.articulo.descripcion}"?`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si, Eliminar',
@@ -59,7 +58,7 @@ export class MovimientoComponent implements OnInit {
     }).then((result) => {
       if (result.value) {
         this.movimientoService.eliminar(row.id).subscribe(res => {
-          this.loadMovimientos();
+          this.loadEntradas();
           Swal.fire(
             'Eliminado',
             'Registro eliminado correctamente.',

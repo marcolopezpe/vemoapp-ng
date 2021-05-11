@@ -1,24 +1,25 @@
 import {Component, OnInit, TemplateRef} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MovimientoService} from '../../../../services/venta/movimiento.service';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {MovimientoService} from '../../../../../services/venta/movimiento.service';
+import {ArticuloService} from '../../../../../services/venta/articulo.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Movimiento} from '../../../../models/venta/movimiento';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
-import {ArticuloService} from '../../../../services/venta/articulo.service';
-import {Articulo} from '../../../../models/venta/articulo';
-import Utils from '../../../../models/shared/utils';
+import Utils from '../../../../../models/shared/utils';
+import {Articulo} from '../../../../../models/venta/articulo';
+import {Movimiento} from '../../../../../models/venta/movimiento';
 
 @Component({
-  selector: 'app-movimiento-registro',
-  templateUrl: './movimiento-registro.component.html',
-  styleUrls: ['./movimiento-registro.component.css']
+  selector: 'app-movimiento-entrada-registro',
+  templateUrl: './movimiento-entrada-registro.component.html',
+  styleUrls: ['./movimiento-entrada-registro.component.css']
 })
-export class MovimientoRegistroComponent implements OnInit {
+export class MovimientoEntradaRegistroComponent implements OnInit {
 
-  frmMovimiento: FormGroup;
+  frmMovimientoEntrada: FormGroup;
   submitted = false;
   id: number;
+  title: string;
 
   articulosModalRef: BsModalRef;
   articulos = [];
@@ -35,20 +36,19 @@ export class MovimientoRegistroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.frmMovimiento = this.formBuilder.group({
+    this.frmMovimientoEntrada = this.formBuilder.group({
       id: [''],
       fecha: [Utils.extractDateOf(new Date()), [Validators.required]],
       articuloId: ['', [Validators.required]],
       articulo: [''],
-      tipo: ['E', [Validators.required]],
       cantidad: ['', [Validators.required, Validators.pattern(/^[.\d]+$/)]],
-      kilos: ['', [Validators.required, Validators.pattern(/^[.\d]+$/)]]
+      kilos: ['', [Validators.required,Validators.pattern(/^[.\d]+$/)]]
     });
 
-    this.loadMovimiento();
+    this.loadMovimientoEntrada();
   }
 
-  loadMovimiento() {
+  loadMovimientoEntrada() {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params['id'];
       if (this.id) {
@@ -56,11 +56,13 @@ export class MovimientoRegistroComponent implements OnInit {
           this.f.id.setValue(res.result.id);
           this.f.fecha.setValue(Utils.stringToDate(res.result.fecha));
           this.f.articuloId.setValue(res.result.articulo.id);
-          this.f.articulo.setValue(res.result.articulo.codigo + ' / ' + res.result.articulo.descripcion);
-          this.f.tipo.setValue(res.result.tipo);
+          this.f.articulo.setValue(res.result.articulo.codigo + ' / ' + res.result.articulo.descripcion + ' / ' + res.result.articulo.unidadMedida.nombre);
           this.f.cantidad.setValue(res.result.cantidad);
           this.f.kilos.setValue(res.result.kilos);
+          this.title = 'Editar Entrada';
         });
+      } else {
+        this.title = 'Nueva Entrada';
       }
     });
   }
@@ -78,32 +80,31 @@ export class MovimientoRegistroComponent implements OnInit {
 
   seleccionarArticulo(row: Articulo) {
     this.f.articuloId.setValue(row.id);
-    this.f.articulo.setValue(row.codigo + ' / ' + row.descripcion);
+    this.f.articulo.setValue(row.codigo + ' / ' + row.descripcion + ' / ' + row.unidadMedida.nombre);
     this.articulosModalRef.hide();
   }
 
-  guardar(e) {
+  guardarEntrada(e) {
     e.preventDefault();
     this.submitted = true;
 
-    if (!this.frmMovimiento.valid) {
-      return;
-    }
-    const body: Movimiento = this.frmMovimiento.value;
+    if (!this.frmMovimientoEntrada.valid) return;
+    const body: Movimiento = this.frmMovimientoEntrada.value;
     body.articulo = new Articulo(this.f.articuloId.value);
+    body.tipo = 'E';
 
     if (this.id) {
       this.movimientoService.actualizar(body).subscribe(res => {
         this.toastrService.success('Registro actualizado correctamente.');
-        this.router.navigate(['/movimientos']);
+        this.router.navigate(['/entradas']);
       }, (err) => {
         this.toastrService.error('Error al actualizar');
         console.log(err);
       });
     } else {
       this.movimientoService.insertar(body).subscribe(res => {
-        this.toastrService.success('Registro guardado correctamente.');
-        this.router.navigate(['/movimientos']);
+        this.toastrService.success('Registro guardado correctamente.')
+        this.router.navigate(['/entradas']);
       }, (err) => {
         this.toastrService.error('Error al registrar');
         console.log(err);
@@ -112,14 +113,14 @@ export class MovimientoRegistroComponent implements OnInit {
   }
 
   get f() {
-    return this.frmMovimiento.controls;
+    return this.frmMovimientoEntrada.controls;
   }
 
   valid(f, e) {
-    return (this.frmMovimiento.get(f).touched || this.submitted) && this.frmMovimiento.hasError(e, f);
+    return (this.frmMovimientoEntrada.get(f).touched || this.submitted) && this.frmMovimientoEntrada.hasError(e, f);
   }
 
   value(f, e) {
-    return this.frmMovimiento.get(f).getError(e);
+    return this.frmMovimientoEntrada.get(f).getError(e);
   }
 }

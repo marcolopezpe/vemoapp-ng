@@ -1,44 +1,46 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {MovimientoService} from '../../../services/venta/movimiento.service';
+import {ComprobanteService} from '../../../services/venta/comprobante.service';
 import Utils from '../../../models/shared/utils';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-movimiento',
-  templateUrl: './movimiento.component.html',
-  styleUrls: ['./movimiento.component.css']
+  selector: 'app-comprobante',
+  templateUrl: './comprobante.component.html',
+  styleUrls: ['./comprobante.component.css']
 })
-export class MovimientoComponent implements OnInit {
+export class ComprobanteComponent implements OnInit {
 
   frmFiltro: FormGroup;
-  movimientos = [];
+  comprobantes = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private movimientoService: MovimientoService) {
+    private comprobanteService: ComprobanteService
+  ) {
   }
 
   ngOnInit(): void {
     this.frmFiltro = this.formBuilder.group({
       desde: [Utils.extractDateOf(new Date())],
       hasta: [Utils.extractDateOf(new Date())],
-      descripcion: [''],
-      tipo: ['']
+      numero: [''],
+      cliente: ['']
     });
 
-    this.loadMovimientos();
+    this.loadComprobantes();
   }
 
-  loadMovimientos() {
+  loadComprobantes() {
     let desde = Utils.extractDateOf(this.f.desde.value);
     let hasta = Utils.extractDateOf(this.f.hasta.value);
-    let descripcion = this.f.descripcion.value;
-    let tipo = this.f.tipo.value;
+    let numero = this.f.numero.value;
+    let cliente = this.f.cliente.value;
 
-    this.movimientoService.getMovimientosByFiltro(desde, hasta, descripcion, tipo).subscribe(res => {
-      this.movimientos = res.result;
+    this.comprobanteService.getComprobantesByFiltro(desde, hasta, numero, cliente).subscribe(res => {
+      this.comprobantes = res.result;
     }, (err) => {
+      this.comprobantes = [];
       console.error(err);
     });
   }
@@ -50,7 +52,7 @@ export class MovimientoComponent implements OnInit {
   eliminar(row) {
     Swal.fire({
       title: 'Eliminar',
-      text: `¿Esta seguro de eliminar el Movimiento con Fecha "${Utils.toDateFormat(row.fecha)}" y Articulo "${row.articulo.codigo + ' / ' + row.articulo.descripcion}"?`,
+      text: `¿Esta seguro de eliminar el Comprobnate "${row.serie + '-' + row.numero}"?`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si, Eliminar',
@@ -58,8 +60,8 @@ export class MovimientoComponent implements OnInit {
       confirmButtonColor: '#dc3545'
     }).then((result) => {
       if (result.value) {
-        this.movimientoService.eliminar(row.id).subscribe(res => {
-          this.loadMovimientos();
+        this.comprobanteService.eliminar(row.id).subscribe(res => {
+          this.loadComprobantes();
           Swal.fire(
             'Eliminado',
             'Registro eliminado correctamente.',

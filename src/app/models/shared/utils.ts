@@ -9,6 +9,13 @@ export default class Utils {
     return date;
   }
 
+  static dateWithFirstDay(): Date {
+    let date = new Date();
+    date.setDate(1);
+    date.setHours(0, 0, 0, 0);
+    return date;
+  }
+
   static dateToString(date: Date): string {
     const goodDate = this.stringToDate(date.toString());
     return moment(goodDate).format('DD/MM/YYYY');

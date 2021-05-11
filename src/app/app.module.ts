@@ -23,6 +23,12 @@ import {defineLocale} from 'ngx-bootstrap/chronos';
 import {esLocale} from 'ngx-bootstrap/locale';
 import { MovimientoRegistroComponent } from './components/venta/movimiento/movimiento-registro/movimiento-registro.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import { ComprobanteComponent } from './components/venta/comprobante/comprobante.component';
+import { ComprobanteRegistroComponent } from './components/venta/comprobante/comprobante-registro/comprobante-registro.component';
+import { MovimientoSalidaComponent } from './components/venta/movimiento/movimiento-salida/movimiento-salida.component';
+import { MovimientoEntradaComponent } from './components/venta/movimiento/movimiento-entrada/movimiento-entrada.component';
+import { MovimientoEntradaRegistroComponent } from './components/venta/movimiento/movimiento-entrada/movimiento-entrada-registro/movimiento-entrada-registro.component';
+import { MovimientoSalidaRegistroComponent } from './components/venta/movimiento/movimiento-salida/movimiento-salida-registro/movimiento-salida-registro.component';
 
 defineLocale('es', esLocale);
 
@@ -37,7 +43,13 @@ defineLocale('es', esLocale);
     ArticuloComponent,
     ArticuloRegistroComponent,
     MovimientoComponent,
-    MovimientoRegistroComponent
+    MovimientoRegistroComponent,
+    ComprobanteComponent,
+    ComprobanteRegistroComponent,
+    MovimientoSalidaComponent,
+    MovimientoEntradaComponent,
+    MovimientoEntradaRegistroComponent,
+    MovimientoSalidaRegistroComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +59,7 @@ defineLocale('es', esLocale);
     ReactiveFormsModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot({
-      positionClass: 'toast-top-center'
+      positionClass: 'toast-top-right',
     }),
     BsDatepickerModule,
     // ToastrModule added

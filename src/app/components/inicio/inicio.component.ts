@@ -19,7 +19,6 @@ export class InicioComponent implements OnInit {
 
   public loadFinalStocks() {
     this.articuloService.getFinalStocks().subscribe(res => {
-      console.log(res);
       this.stocks = res.result;
     });
   }

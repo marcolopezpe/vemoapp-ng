@@ -22,7 +22,7 @@ export class ComprobanteComponent implements OnInit {
 
   ngOnInit(): void {
     this.frmFiltro = this.formBuilder.group({
-      desde: [Utils.extractDateOf(new Date())],
+      desde: [Utils.dateWithFirstDay()],
       hasta: [Utils.extractDateOf(new Date())],
       numero: [''],
       cliente: ['']
